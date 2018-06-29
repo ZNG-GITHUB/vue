@@ -8,10 +8,17 @@ import router from './router'
 
 // 引用API文件
 import api from './api/index.js'
+import utils from './utils/index.js'
+import $ from 'jquery'
+
 // 将API方法绑定到全局
 Vue.prototype.$api = api
 
 Vue.config.productionTip = false
+
+// 引用工具文件
+// 将工具方法绑定到全局
+Vue.prototype.$utils = utils
 
 Vue.use(ElementUI);
 
