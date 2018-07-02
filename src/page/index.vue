@@ -5,51 +5,36 @@
         <Header></Header>
       </el-header>
       <el-container>
-        <el-menu default-active="1-4-1"
-                   class="el-menu-vertical-demo"
-                   @open="handleOpen"
-                   @close="handleClose"
-                   background-color="#545c64"
-                   text-color="#fff"
-                   active-text-color="#ffd04b"
-                   :collapse="isCollapse">
-          <div style="width: 200px;height: 100px">
+        <el-menu default-active="demo_1"
+                 :router = "true"
+                 class="el-menu-vertical-demo"
+                 @open="handleOpen"
+                 @close="handleClose"
+                 background-color="#545c64"
+                 text-color="#fff"
+                 active-text-color="#ffd04b"
+                 :collapse="isCollapse">
+          <div class="logo">
             <i class="el-icon-menu" @click="handleMenu"></i>
           </div>
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span slot="title">导航一</span>
-            </template>
-            <el-menu-item-group>
-              <span slot="title">分组一</span>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <span slot="title">选项4</span>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+          <el-menu-item index="demo_1">
+            <i class="el-icon-location"></i>
+            <span slot="title">主页</span>
+            <!--<router-link slot="title" to="/demo_1">主页</router-link>-->
           </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="demo_2">
             <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
+            <span slot="title">系统</span>
+            <!--<router-link slot="title" to="/demo_2">系统</router-link>-->
           </el-menu-item>
         </el-menu>
         <el-main class="page-main" :style="{'min-height':minPageHeight+'px'}">
-          <div id="main-box"></div>
-          <el-footer>
+          <div id="main-box">
+            <!-- 路由出口 -->
+            <!-- 路由匹配到的组件将渲染在这里 -->
+            <router-view></router-view>
+          </div>
+          <el-footer class="footer">
             <Footer></Footer>
           </el-footer>
         </el-main>
@@ -82,12 +67,13 @@
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
-      handleMenu:function(){
+      handleMenu:function(e){
         if(this.isCollapse){
           this.isCollapse = false;
         }else {
           this.isCollapse = true;
         }
+        e.stopPropagation();
       },
       initMinPageHeight:function(){
         this.minPageHeight = $(window).height() - $(".page-main").offset().top;
@@ -115,5 +101,17 @@
   .header{
     background-color: darkcyan;
     color: #fff;
+  }
+  .footer{
+    padding: 0;
+    height: 60px;
+    line-height: 60px;
+  }
+  .logo{
+    height: 100px;
+    text-align: center;
+    width: 100%;
+    line-height: 100px;
+    color: #909399;
   }
 </style>

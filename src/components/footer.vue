@@ -1,10 +1,11 @@
 <template>
-  <footer class="copy footer">
+  <footer class="footer">
     Copy &copy; ZNG
   </footer>
 </template>
 <style>
   .footer{
-    background-color: cyan;
+    background-color: #FFFFFF;
+    text-align: center;
   }
 </style>
