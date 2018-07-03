@@ -4,21 +4,53 @@
       <h3>Vue Demo by ZNG</h3>
     </div>
 
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <div class="user-icon">
-          <img src="static/image/default-head.png"/>
-        </div>
-      </el-col>
-    </el-row>
-    <!--<div class="header-user">
 
-      <div class="user-info">
-        <span>系统管理员</span>
-      </div>
-    </div>-->
+    <div class="header-user">
+      <el-row>
+        <el-col :span="8">
+          <div class="user-icon">
+            <img src="static/image/default-head.png"/>
+          </div>
+        </el-col>
+        <el-col :span="16">
+          <el-dropdown @command="handleCommand">
+            <div class="user-name el-dropdown-link">
+              <span>系统管理员</span>
+            </div>
+            <el-dropdown-menu slot="dropdown" split-button="true">
+              <el-dropdown-item command="a">查看用户信息</el-dropdown-item>
+              <el-dropdown-item command="d" disabled>修改密码</el-dropdown-item>
+              <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-col>
+      </el-row>
+    </div>
   </header>
 </template>
+<script>
+  export default {
+    data () {
+      return {
+
+      }
+    },
+    mounted () {
+
+    },
+    methods: {
+      handleCommand(key){
+        switch (key){
+          case 'logout':
+            this.handleLoginOut();
+        }
+      },
+      handleLoginOut(){
+        this.$router.push("/");
+      }
+    }
+  }
+</script>
 <style>
   img{
     width: 100%;
@@ -35,19 +67,19 @@
     border-radius: 50%;
     line-height: 38px;
     margin-top: 12px;
-    display: inline-block;
   }
-  .user-info{
-    margin-left: 10px;
-    height: 38px;
-    line-height: 38px;
-    display: inline-block;
-  }
-  .header-user{
-    float: right;
-    padding-right: 100px;
+  .user-name{
     height: 60px;
     line-height: 60px;
   }
-
+  .header-user{
+    width: 10%;
+    float: right;
+    height: 60px;
+    line-height: 60px;
+  }
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #FFFFFF;
+  }
 </style>
