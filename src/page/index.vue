@@ -20,12 +20,10 @@
           <el-menu-item index="demo_1">
             <i class="el-icon-location"></i>
             <span slot="title">主页</span>
-            <!--<router-link slot="title" to="/demo_1">主页</router-link>-->
           </el-menu-item>
           <el-menu-item index="demo_2">
             <i class="el-icon-setting"></i>
             <span slot="title">系统</span>
-            <!--<router-link slot="title" to="/demo_2">系统</router-link>-->
           </el-menu-item>
         </el-menu>
         <el-main class="page-main" :style="{'min-height':minPageHeight+'px'}">
@@ -59,6 +57,7 @@
       window.onresize = function () {
         me.initMinPageHeight();
       };
+      me.$router.push('/demo_1')
     },
     methods: {
       handleOpen(key, keyPath) {

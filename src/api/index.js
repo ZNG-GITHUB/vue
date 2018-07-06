@@ -80,6 +80,7 @@
             center:true,
             type: 'error'
           });
+          console.log(err)
         }
       })
     }

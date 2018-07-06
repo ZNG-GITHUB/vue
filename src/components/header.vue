@@ -46,7 +46,13 @@
         }
       },
       handleLoginOut(){
-        this.$router.push("/");
+        var me =this;
+        this.$api.get("/01/logout",null,function (data) {
+          if(data.code != 200){
+            me.$message.error(data.message);
+          }
+        })
+        me.$router.push("/");
       }
     }
   }

@@ -11,15 +11,20 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/**': {
+      '/01/**': {
         target: 'http://192.168.6.68:8088', // 你接口的域名
+        secure: false,
+        changeOrigin: false,
+      },
+      '/02/**': {
+        target: 'http://192.168.6.68:8089', // 你接口的域名
         secure: false,
         changeOrigin: false,
       }
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '192.168.6.68', // can be overwritten by process.env.HOST
     port: 8888, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

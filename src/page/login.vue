@@ -3,16 +3,15 @@
     <el-row type="flex" align="middle" justify="center" :style="{'min-height':pageHeight+'px'}">
       <el-col :span="6">
         <div class="login-box">
-          <el-form ref="form" label-width="80px" style="color: black">
+          <el-form ref="form" v-model="login_form" label-width="80px" style="color: black">
             <el-form-item label="用户名">
-              <el-input></el-input>
+              <el-input v-model="login_form.username"></el-input>
             </el-form-item>
             <el-form-item label="密码">
-              <el-input></el-input>
+              <el-input v-model="login_form.password" type="password"></el-input>
             </el-form-item>
             <el-form-item style="text-align: right">
               <el-button type="primary" @click="onSubmit">登录</el-button>
-              <el-button>取消</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -24,7 +23,11 @@
   export default {
     data(){
         return {
-          pageHeight:0
+          pageHeight:0,
+          login_form:{
+              username:"admin",
+              password:"123"
+          }
         }
     },
     mounted () {
@@ -36,7 +39,16 @@
     },
     methods: {
       onSubmit(){
-          this.$router.push("/index");
+          var loginInfo = this.login_form;
+          var me = this;
+        this.$api.post("/02/login",loginInfo,function (data) {
+          if(data.code == 200){
+            me.$router.push("/index");
+          }else{
+            me.$message.error(data.message);
+          }
+        })
+        event.preventDefault();
       },
       initPageHeight:function(){
         this.pageHeight = $(window).height();
