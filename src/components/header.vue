@@ -50,6 +50,8 @@
         this.$api.get("/01/logout",null,function (data) {
           if(data.code != 200){
             me.$message.error(data.message);
+          }else {
+            localStorage.removeItem("token");
           }
         })
         me.$router.push("/");

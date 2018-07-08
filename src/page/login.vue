@@ -41,8 +41,9 @@
       onSubmit(){
           var loginInfo = this.login_form;
           var me = this;
-        this.$api.post("/02/login",loginInfo,function (data) {
+        this.$api.post("/01/login",loginInfo,function (data) {
           if(data.code == 200){
+            localStorage.setItem("token",data.data);
             me.$router.push("/index");
           }else{
             me.$message.error(data.message);
@@ -66,7 +67,8 @@
     padding-top: 40px;
     padding-right: 30px;
     padding-bottom: 1px;
-    background-color : rgba(255,255,255,0.5)
+    background-color : rgba(255,255,255,0.5);
+    box-shadow: 0px 0px 20px 0px #ffffff;
   }
   .el-form-item__label{
     color: #FFFFFF;

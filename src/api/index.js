@@ -43,7 +43,15 @@
       if (params) {
         params = filterNull(params)
       }
+      let token = localStorage.getItem("token");
+      if(!token){
+        token = "";
+      }
+
       axios({
+        headers: {
+          'Authorization': token
+        },
         method: method,
         url: url,
         data: method === 'POST' || method === 'PUT' ? params : null,

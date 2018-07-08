@@ -19,7 +19,7 @@
     methods: {
       getToken(){
         var me = this;
-        this.$api.get("/02/token",null,function (data) {
+        this.$api.get("/01/token",null,function (data) {
           if(data.code == 200){
             me.token = data.data;
           }else{
