@@ -1,11 +1,11 @@
-<template>
+<template xmlns:v-bind="http://www.w3.org/1999/XSL/Transform">
   <div>
     <el-container>
       <el-header class="header">
         <Header></Header>
       </el-header>
       <el-container>
-        <el-menu default-active="demo_1"
+        <el-menu :default-active="activeMenu"
                  :router = "true"
                  class="el-menu-vertical-demo"
                  @open="handleOpen"
@@ -17,14 +17,34 @@
           <div class="logo">
             <i class="el-icon-menu" @click="handleMenu"></i>
           </div>
-          <el-menu-item index="demo_1">
-            <i class="el-icon-location"></i>
-            <span slot="title">主页</span>
-          </el-menu-item>
-          <el-menu-item index="demo_2">
-            <i class="el-icon-setting"></i>
-            <span slot="title">系统</span>
-          </el-menu-item>
+
+          <template v-for="item in menuData">
+            <el-submenu v-if="item.children" :index="item.id" v-bind:key="item.id">
+              <template slot="title">
+                <i :class="item.icon"></i>
+                <span>{{item.name}}</span>
+              </template>
+              <el-submenu v-for="item_2 in item.children" v-if="item_2.children" :index="item_2.id" v-bind:key="item_2.id">
+                <template slot="title">
+                  <span>{{item_2.name}}</span>
+                </template>
+                <el-menu-item v-for="item_3 in item_2.children" :index="item_3.path" v-bind:key="item_3.id">
+                  <span slot="title">{{item_3.name}}</span>
+                </el-menu-item>
+              </el-submenu>
+              <el-menu-item v-else :index="item_2.path" v-bind:key="item_2.id">
+                <span slot="title">{{item_2.name}}</span>
+              </el-menu-item>
+            </el-submenu>
+            <el-menu-item v-else :index="item.path" v-bind:key="item.id">
+              <i :class="item.icon"></i>
+              <span slot="title">{{item.name}}</span>
+            </el-menu-item>
+          </template>
+          <!--<el-menu-item v-for="item in menuData" :index="item.path" v-bind:key="item.id">
+            <i :class="item.icon"></i>
+            <span slot="title">{{item.name}}</span>
+          </el-menu-item>-->
         </el-menu>
         <el-main class="page-main" :style="{'min-height':minPageHeight+'px'}">
           <div id="main-box">
@@ -48,18 +68,57 @@
     data () {
       return {
         isCollapse: false,
-        minPageHeight:0
+        minPageHeight:0,
+        menuData:[{
+          id:1,
+          path:'demo_1',
+          icon:'el-icon-location',
+          name:'主页',
+          children:null
+        },{
+          id:2,
+          path:'',
+          icon:'el-icon-setting',
+          name:'系统',
+          children:[{
+            id:3,
+            path:'',
+            icon:'el-icon-setting',
+            name:'第一层',
+            children:[{
+              id:4,
+              path:'demo_2',
+              icon:'el-icon-setting',
+              name:'第二层'
+            }]
+          }]
+        }],
+        activeMenu:'demo_1'
       }
     },
     mounted () {
-      var me =this;
-      me.initMinPageHeight();
-      window.onresize = function () {
-        me.initMinPageHeight();
-      };
-      me.$router.push('/demo_1')
+      this.init();
     },
     methods: {
+      init(){
+        let me =this;
+        me.initMinPageHeight();
+//        me.getMenu();
+        window.onresize = function () {
+          me.initMinPageHeight();
+        };
+        me.$router.push('/demo_1')
+      },
+      getMenu(){
+        var me = this;
+        this.$api.get("/menu",null,function (data) {
+          if(data.code === 200){
+            me.menuData = data.data;
+          }else{
+            me.$message.error(data.message);
+          }
+        })
+      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },

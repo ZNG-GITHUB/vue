@@ -5,7 +5,7 @@
     import Vue from 'vue';
 
     // 配置API接口地址
-    var root = '/'
+    var root = '/boot'
     // 引用axios
     var axios = require('axios')
     var vm = new Vue();

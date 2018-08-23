@@ -11,7 +11,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/01/**': {
+      '/boot/**': {
         target: 'http://localhost:8088', // 你接口的域名
         secure: false,
         changeOrigin: false,

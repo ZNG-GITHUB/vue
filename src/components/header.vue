@@ -47,7 +47,7 @@
       },
       handleLoginOut(){
         var me =this;
-        this.$api.get("/01/logout",null,function (data) {
+        this.$api.get("/logout",null,function (data) {
           if(data.code != 200){
             me.$message.error(data.message);
           }else {

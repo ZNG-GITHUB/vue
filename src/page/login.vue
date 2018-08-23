@@ -41,7 +41,7 @@
       onSubmit(){
           var loginInfo = this.login_form;
           var me = this;
-        this.$api.post("/01/login",loginInfo,function (data) {
+        this.$api.post("/login",loginInfo,function (data) {
           if(data.code == 200){
             localStorage.setItem("token",data.data);
             me.$router.push("/index");
