@@ -70,23 +70,23 @@
         isCollapse: false,
         minPageHeight:0,
         menuData:[{
-          id:1,
+          id:'1',
           path:'demo_1',
           icon:'el-icon-location',
           name:'主页',
           children:null
         },{
-          id:2,
+          id:'2',
           path:'',
           icon:'el-icon-setting',
           name:'系统',
           children:[{
-            id:3,
+            id:'3',
             path:'',
             icon:'el-icon-setting',
             name:'第一层',
             children:[{
-              id:4,
+              id:'4',
               path:'demo_2',
               icon:'el-icon-setting',
               name:'第二层'
