@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header-title">
-      <h3>Vue Demo by ZNG</h3>
+      <a href="javacript:void(0);" @click="handleTitleClick"><h3>Vue Demo by ZNG</h3></a>
     </div>
 
 
@@ -32,13 +32,21 @@
   export default {
     data () {
       return {
-
+        userInfo:{
+            id:1,
+          name:"系统管理员"
+        }
       }
     },
     mounted () {
-
+      this.$emit('user-info',this.userInfo);
     },
     methods: {
+
+      handleTitleClick(){
+        this.$emit('title-click');
+      },
+
       handleCommand(key){
         switch (key){
           case 'logout':
@@ -47,13 +55,13 @@
       },
       handleLoginOut(){
         var me =this;
-        this.$api.get("/logout",null,function (data) {
+        /*this.$api.get("/logout",null,function (data) {
           if(data.code != 200){
             me.$message.error(data.message);
           }else {
             localStorage.removeItem("token");
           }
-        })
+        })*/
         me.$router.push("/");
       }
     }

@@ -39,16 +39,17 @@
     },
     methods: {
       onSubmit(){
-          var loginInfo = this.login_form;
-          var me = this;
-        this.$api.post("/login",loginInfo,function (data) {
+        var loginInfo = this.login_form;
+        var me = this;
+        /*this.$api.post("/login",loginInfo,function (data) {
           if(data.code == 200){
             localStorage.setItem("token",data.data);
             me.$router.push("/index");
           }else{
             me.$message.error(data.message);
           }
-        })
+        })*/
+        me.$router.push("/index");
         event.preventDefault();
       },
       initPageHeight:function(){

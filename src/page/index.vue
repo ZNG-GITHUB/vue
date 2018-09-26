@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header class="header">
-        <Header></Header>
+        <Header @title-click="handleMenu"></Header>
       </el-header>
       <el-container>
         <el-menu :default-active="activeMenu"
@@ -14,10 +14,6 @@
                  text-color="#fff"
                  active-text-color="#ffd04b"
                  :collapse="isCollapse">
-          <div class="logo">
-            <i class="el-icon-menu" @click="handleMenu"></i>
-          </div>
-
           <template v-for="item in menuData">
             <el-submenu v-if="item.children" :index="item.id" v-bind:key="item.id">
               <template slot="title">
@@ -93,7 +89,8 @@
             }]
           }]
         }],
-        activeMenu:'demo_1'
+        activeMenu:'demo_1',
+        user:{}
       }
     },
     mounted () {
@@ -109,29 +106,21 @@
         };
         me.$router.push('/demo_1')
       },
-      getMenu(){
-        var me = this;
-        this.$api.get("/menu",null,function (data) {
-          if(data.code === 200){
-            me.menuData = data.data;
-          }else{
-            me.$message.error(data.message);
-          }
-        })
-      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
-      handleMenu:function(e){
+      handleMenu:function(){
         if(this.isCollapse){
           this.isCollapse = false;
         }else {
           this.isCollapse = true;
         }
-        e.stopPropagation();
+      },
+      getUser:function (user) {
+          this.user = user;
       },
       initMinPageHeight:function(){
         this.minPageHeight = $(window).height() - $(".page-main").offset().top;
@@ -141,7 +130,7 @@
 </script>
 <style>
   a{
-    color: #419EFF;
+    color: #FFFFFF;
     text-decoration: none;
   }
   body{

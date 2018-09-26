@@ -14,19 +14,8 @@
       }
     },
     mounted () {
-        this.getToken();
     },
     methods: {
-      getToken(){
-        var me = this;
-        this.$api.get("/token",null,function (data) {
-          if(data.code == 200){
-            me.token = data.data;
-          }else{
-            me.$message.error(data.message);
-          }
-        })
-      }
     }
   }
 </script>
