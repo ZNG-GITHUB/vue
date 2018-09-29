@@ -3,22 +3,22 @@
     <div class="header-title">
       <a href="javacript:void(0);" @click="handleTitleClick"><h3>Vue Demo by ZNG</h3></a>
     </div>
-
-
     <div class="header-user">
       <el-row>
         <el-col :span="8">
           <div class="user-icon">
-            <img src="static/image/default-head.png"/>
+            <img v-if="user && user.icon" src="user.icon"/>
+            <img v-else src="static/image/default-head.png"/>
           </div>
         </el-col>
         <el-col :span="16">
           <el-dropdown @command="handleCommand">
             <div class="user-name el-dropdown-link">
-              <span>系统管理员</span>
+              <span v-if="user">{{user.name}}</span>
+              <span v-else>默认</span>
             </div>
             <el-dropdown-menu slot="dropdown" split-button="true">
-              <el-dropdown-item command="a">查看用户信息</el-dropdown-item>
+              <el-dropdown-item command="showUser">查看用户信息</el-dropdown-item>
               <el-dropdown-item command="d" disabled>修改密码</el-dropdown-item>
               <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
             </el-dropdown-menu>
@@ -30,16 +30,20 @@
 </template>
 <script>
   export default {
+    props:{
+      user:{
+        type:Object
+      },
+      vm:{
+        type:Object
+      }
+    },
     data () {
       return {
-        userInfo:{
-            id:1,
-          name:"系统管理员"
-        }
       }
     },
     mounted () {
-      this.$emit('user-info',this.userInfo);
+
     },
     methods: {
 
@@ -49,19 +53,16 @@
 
       handleCommand(key){
         switch (key){
+          case 'showUser':
+              this.vm.$emit('menu-change',"/permission");
+              break;
           case 'logout':
-            this.handleLoginOut();
+              this.handleLoginOut();
+              break;
         }
       },
       handleLoginOut(){
         var me =this;
-        /*this.$api.get("/logout",null,function (data) {
-          if(data.code != 200){
-            me.$message.error(data.message);
-          }else {
-            localStorage.removeItem("token");
-          }
-        })*/
         me.$router.push("/");
       }
     }

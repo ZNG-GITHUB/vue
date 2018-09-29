@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/page/index'
-import Demo_1 from '@/page/demo_1'
-import Demo_2 from '@/page/demo_2'
+import Main from '@/page/main/main'
+import Permission from '@/page/system/permission'
 import Login from  '@/page/login'
 
 Vue.use(Router)
@@ -17,11 +17,11 @@ export default new Router({
       name: 'Index',
       component: Index,
       children:[{
-        path:'/demo_1',
-        component:Demo_1
+        path:'/main',
+        component:Main
       },{
-        path:'/demo_2',
-        component:Demo_2
+        path:'/permission',
+        component:Permission
       }]
     }
   ]
