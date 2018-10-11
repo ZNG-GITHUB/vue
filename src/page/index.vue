@@ -2,12 +2,17 @@
   <div>
     <el-container>
       <el-header class="header">
-        <Header :vm="VM" :user="loginUser" @title-click="handleMenu"></Header>
+        <Header :user="loginUser"
+                background-color="darkcyan"
+                color="#fff"
+                @title-click="handleMenu"
+                @menu-change="selectMenu"></Header>
       </el-header>
       <el-container>
-        <Menu :vm="VM"
-              :data="menuData"
+        <Menu :data="menuData"
+              :activeMenu="activeMenu"
               :option="menuOption"
+              @select="selectMenu"
               :collapse="isCollapse"></Menu>
         <el-main class="page-main" :style="{'min-height':minPageHeight+'px'}">
           <div id="main-box">
@@ -15,6 +20,8 @@
             <!-- 路由匹配到的组件将渲染在这里 -->
             <router-view></router-view>
           </div>
+          <el-button type="primary" @click="activeMenu = 'permission'">主要按钮</el-button>
+          <el-button type="primary" @click="activeMenu = 'main'">主要按钮</el-button>
           <el-footer class="footer">
             <Footer></Footer>
           </el-footer>
@@ -29,13 +36,10 @@
   import Footer from '../components/footer.vue'
   import Menu from '../components/menu.vue'
 
-  const vm=new Vue();
-
   export default {
     components: { Header,Footer,Menu},
     data () {
       return {
-        VM:vm,
         isCollapse: false,
         minPageHeight:0,
         menuData:[{
@@ -65,8 +69,8 @@
           backgroundColor:"#545c64",
           textColor:"#fff",
           activeTextColor:"#ffd04b",
-          defaultMenu:'permission',
         },
+        activeMenu:"main",
         loginUser:{
             id:1,
           name:"John"
@@ -83,7 +87,7 @@
         window.onresize = function () {
           me.initMinPageHeight();
         };
-        me.$router.push('/permission')
+        me.$router.push('/main');
       },
       handleMenu:function(){
         if(this.isCollapse){
@@ -91,6 +95,9 @@
         }else {
           this.isCollapse = true;
         }
+      },
+      selectMenu:function (key) {
+        this.activeMenu = key;
       },
       initMinPageHeight:function(){
         this.minPageHeight = $(window).height() - $(".page-main").offset().top;
@@ -110,10 +117,6 @@
   }
   .page-main{
     background-color: whitesmoke;
-  }
-  .header{
-    background-color: darkcyan;
-    color: #fff;
   }
   .footer{
     padding: 0;

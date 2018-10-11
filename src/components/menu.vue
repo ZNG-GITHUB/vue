@@ -1,10 +1,11 @@
 <template >
-    <el-menu :default-active="option.defaultMenu"
+  <el-menu :default-active="activeMenu"
              :data="data"
              :router="option.router"
              class="el-menu-vertical-demo"
              @open="handleOpen"
              @close="handleClose"
+             @select="handleSelect"
              :background-color="option.backgroundColor"
              :text-color="option.textColor"
              :active-text-color="option.activeTextColor"
@@ -37,11 +38,11 @@
 <script>
   export default {
     props:{
-      vm:{
-        type:Object
-      },
       option:{
           type:Object
+      },
+      activeMenu:{
+          type:String
       },
       collapse:{
           type:Boolean
@@ -53,16 +54,18 @@
           type:Array
       }
     },
+    watch:{
+      activeMenu:function (newVal,oldVal) {
+        this.$router.push("/"+newVal);
+      }
+    },
     data () {
       return {
 
       }
     },
     mounted () {
-        this.vm.$on('menu-change',(data)=>{
-            this.$router.push(data);
-            this.option.defaultMenu=data;
-        });
+
     },
     methods: {
         handleOpen(key, keyPath) {
@@ -71,6 +74,9 @@
         handleClose(key, keyPath) {
           this.$emit('close',key, keyPath);
         },
+        handleSelect(key, keyPath) {
+          this.$emit('select',key, keyPath);
+        }
     }
   }
 </script>

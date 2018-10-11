@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" :style="'background-color:'+backgroundColor+';color:'+color">
     <div class="header-title">
       <a href="javacript:void(0);" @click="handleTitleClick"><h3>Vue Demo by ZNG</h3></a>
     </div>
@@ -36,6 +36,12 @@
       },
       vm:{
         type:Object
+      },
+      backgroundColor:{
+        type:String
+      },
+      color:{
+        type:String
       }
     },
     data () {
@@ -54,7 +60,7 @@
       handleCommand(key){
         switch (key){
           case 'showUser':
-              this.vm.$emit('menu-change',"/permission");
+              this.$emit('menu-change',"permission");
               break;
           case 'logout':
               this.handleLoginOut();
@@ -98,5 +104,9 @@
   .el-dropdown-link {
     cursor: pointer;
     color: #FFFFFF;
+  }
+  .header{
+    height: 60px;
+    padding: 0;
   }
 </style>
