@@ -15,13 +15,18 @@
               @select="selectMenu"
               :collapse="isCollapse"></Menu>
         <el-main class="page-main" :style="{'min-height':minPageHeight+'px'}">
+          <div style="height: 30px;line-height: 30px">
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item><a href="javascript:void(0);" @click="toMain">首页</a></el-breadcrumb-item>
+              <el-breadcrumb-item v-if="activeMenu.name && activeMenu.path != 'main'">{{activeMenu.name}}</el-breadcrumb-item>
+              <el-breadcrumb-item v-else></el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
           <div id="main-box">
             <!-- 路由出口 -->
             <!-- 路由匹配到的组件将渲染在这里 -->
             <router-view></router-view>
           </div>
-          <el-button type="primary" @click="activeMenu = 'permission'">主要按钮</el-button>
-          <el-button type="primary" @click="activeMenu = 'main'">主要按钮</el-button>
           <el-footer class="footer">
             <Footer></Footer>
           </el-footer>
@@ -65,12 +70,12 @@
           }]
         }],
         menuOption:{
-          router:true,
+          router:false,
           backgroundColor:"#545c64",
           textColor:"#fff",
           activeTextColor:"#ffd04b",
         },
-        activeMenu:"main",
+        activeMenu:{},
         loginUser:{
             id:1,
           name:"John"
@@ -87,7 +92,10 @@
         window.onresize = function () {
           me.initMinPageHeight();
         };
-        me.$router.push('/main');
+        this.toMain();
+      },
+      toMain:function () {
+        this.activeMenu = this.menuData[0];
       },
       handleMenu:function(){
         if(this.isCollapse){
@@ -96,8 +104,29 @@
           this.isCollapse = true;
         }
       },
-      selectMenu:function (key) {
-        this.activeMenu = key;
+      selectMenu:function (key,keyPath) {
+        //当前菜单项
+        let menu = this.getMenuItem(key,this.menuData);
+        if(menu.path){
+          this.activeMenu = menu;
+        }
+      },
+      getMenuItem:function (id,arr) {
+        let cur = "";
+        let me = this;
+        arr.forEach(function (item,index) {
+          if(item.id && item.id === id){
+            cur = item;
+            return false;
+          }else if(item.children && item.children.length > 0){
+            let rs = me.getMenuItem(id,item.children);
+            if(rs){
+              cur = rs;
+              return false;
+            }
+          }
+        });
+        return cur;
       },
       initMinPageHeight:function(){
         this.minPageHeight = $(window).height() - $(".page-main").offset().top;
@@ -122,6 +151,7 @@
     padding: 0;
     height: 60px;
     line-height: 60px;
+    margin-top: 10px;
   }
   .logo{
     height: 100px;

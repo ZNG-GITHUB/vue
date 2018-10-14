@@ -1,7 +1,7 @@
 <template>
   <header class="header" :style="'background-color:'+backgroundColor+';color:'+color">
     <div class="header-title">
-      <a href="javacript:void(0);" @click="handleTitleClick"><h3>Vue Demo by ZNG</h3></a>
+      <a href="javascript:void(0);" @click="handleTitleClick"><h3>Vue Demo by ZNG</h3></a>
     </div>
     <div class="header-user">
       <el-row>
@@ -60,7 +60,7 @@
       handleCommand(key){
         switch (key){
           case 'showUser':
-              this.$emit('menu-change',"permission");
+              this.$emit('menu-change',"211");
               break;
           case 'logout':
               this.handleLoginOut();

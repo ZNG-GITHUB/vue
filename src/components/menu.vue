@@ -1,5 +1,5 @@
 <template >
-  <el-menu :default-active="activeMenu"
+  <el-menu :default-active="activeMenu.id"
              :data="data"
              :router="option.router"
              class="el-menu-vertical-demo"
@@ -20,15 +20,15 @@
           <template slot="title">
             <span>{{item_2.name}}</span>
           </template>
-          <el-menu-item v-for="item_3 in item_2.children" :index="item_3.path" v-bind:key="item_3.id">
+          <el-menu-item v-for="item_3 in item_2.children" :index="item_3.id" v-bind:key="item_3.id">
             <span slot="title">{{item_3.name}}</span>
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else :index="item_2.path" v-bind:key="item_2.id">
+        <el-menu-item v-else :index="item_2.id" v-bind:key="item_2.id">
           <span slot="title">{{item_2.name}}</span>
         </el-menu-item>
       </el-submenu>
-      <el-menu-item v-else :index="item.path" v-bind:key="item.id">
+      <el-menu-item v-else :index="item.id" v-bind:key="item.id">
         <i :class="item.icon"></i>
         <span slot="title">{{item.name}}</span>
       </el-menu-item>
@@ -42,7 +42,7 @@
           type:Object
       },
       activeMenu:{
-          type:String
+          type:Object
       },
       collapse:{
           type:Boolean
@@ -56,7 +56,9 @@
     },
     watch:{
       activeMenu:function (newVal,oldVal) {
-        this.$router.push("/"+newVal);
+        if(newVal.path){
+          this.$router.push(newVal.path);
+        }
       }
     },
     data () {
