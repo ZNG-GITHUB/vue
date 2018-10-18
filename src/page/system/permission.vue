@@ -104,7 +104,7 @@
           label: 'name'
         },
         checkAllPermission: false,
-        checkedPermission: ['查看'],
+        checkedPermission: [1],
         permissionData: data,
         isIndeterminate: true
       }
@@ -128,6 +128,7 @@
         this.isIndeterminate = false;
       },
       handleCheckedPermissionsChange(value) {
+          debugger;
         let checkedCount = value.length;
         this.checkAllPermission = checkedCount === this.permissionData.length;
         this.isIndeterminate = checkedCount > 0 && checkedCount < this.permissionData.length;

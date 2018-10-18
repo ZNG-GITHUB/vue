@@ -18,7 +18,7 @@
           <div style="height: 30px;line-height: 30px">
             <el-breadcrumb separator="/">
               <el-breadcrumb-item><a href="javascript:void(0);" @click="toMain">首页</a></el-breadcrumb-item>
-              <el-breadcrumb-item v-if="activeMenu.name && activeMenu.path != 'main'">{{activeMenu.name}}</el-breadcrumb-item>
+              <el-breadcrumb-item v-if="activeMenu.name">{{activeMenu.name}}</el-breadcrumb-item>
               <el-breadcrumb-item v-else></el-breadcrumb-item>
             </el-breadcrumb>
           </div>
