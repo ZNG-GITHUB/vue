@@ -43,6 +43,7 @@
       }
     },
     mounted () {
+        this.test();
 
       var myChart = echarts.init(document.getElementById('charts'));
       // 使用刚指定的配置项和数据显示图表。
@@ -62,6 +63,12 @@
       });
     },
     methods: {
+        test:function () {
+          let ss = new Array(['A','B','C']);
+          for(let i of ss){
+            alert(i);
+          }
+        }
     }
   }
 </script>

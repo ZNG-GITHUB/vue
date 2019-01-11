@@ -1,14 +1,11 @@
 <template>
   <div style="width: 100%;">
-    <Z-Table></Z-Table>
+
   </div>
 </template>
 <script>
-
-  import ZTable from '../../../components/z_table'
-
   export default {
-    components: {ZTable},
+    components: {},
     data(){
       return {
 

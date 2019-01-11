@@ -42,7 +42,7 @@
   import Menu from '../components/menu.vue'
 
   export default {
-    components: { Header,Footer,Menu},
+    components: {Header,Footer,Menu},
     data () {
       return {
         isCollapse: false,
@@ -98,9 +98,10 @@
     },
     methods: {
       init(){
+
         let me =this;
         me.initMinPageHeight();
-        window.onresize = function () {
+        window.onresize = () => {
           me.initMinPageHeight();
         };
         this.toMain();
