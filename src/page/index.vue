@@ -54,6 +54,17 @@
           name:'主页',
           children:null
         },{
+            id:'3',
+            path:'',
+            icon:'el-icon-share',
+            name:'组件',
+            children:[{
+              id:'31',
+              path:'table',
+              name:'表格',
+              children:null
+            }]
+        },{
           id:'2',
           path:'',
           icon:'el-icon-setting',
