@@ -49,9 +49,9 @@
       }
 
       axios({
-        headers: {
+        /*headers: {
           'Authorization': token
-        },
+        },*/
         method: method,
         url: url,
         data: method === 'POST' || method === 'PUT' ? params : null,

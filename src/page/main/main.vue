@@ -59,15 +59,11 @@
           // 可选，数据的 index
           dataIndex: params.dataIndex
         });
-        console.log("单击了 "+params.value+" x轴标签");
       });
     },
     methods: {
         test:function () {
-          let ss = new Array(['A','B','C']);
-          for(let i of ss){
-            alert(i);
-          }
+
         }
     }
   }

@@ -99,6 +99,10 @@
     methods: {
       init(){
 
+        this.$api.post("/getLoginUser",'',function (res) {
+          alert(res.data);
+        });
+
         let me =this;
         me.initMinPageHeight();
         window.onresize = () => {

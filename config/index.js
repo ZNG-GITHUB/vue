@@ -11,13 +11,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/boot/**': {
+      '/**': {
         target: 'http://localhost:8088', // 你接口的域名
-        secure: false,
-        changeOrigin: false,
-      },
-      '/02/**': {
-        target: 'http://localhost:8089', // 你接口的域名
         secure: false,
         changeOrigin: false,
       }
@@ -61,7 +56,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

@@ -1,5 +1,6 @@
 <template>
-  <div style="background-image: url('static/image/login-bg.jpg')">
+  <!--<div style="background-image: url('static/image/login-bg.jpg')">-->
+  <div style="background-color: grey">
     <el-row type="flex" align="middle" justify="center" :style="{'min-height':pageHeight+'px'}">
       <el-col :span="6">
         <div class="login-box">
@@ -25,8 +26,8 @@
         return {
           pageHeight:0,
           login_form:{
-              username:"admin",
-              password:"123"
+              username:"",
+              password:""
           }
         }
     },
@@ -39,17 +40,18 @@
     },
     methods: {
       onSubmit(){
-        var loginInfo = this.login_form;
-        var me = this;
-        /*this.$api.post("/login",loginInfo,function (data) {
+        let loginInfo = this.login_form;
+        let me = this;
+        this.$api.post("/login",loginInfo,function (data) {
           if(data.code == 200){
             localStorage.setItem("token",data.data);
             me.$router.push("/index");
           }else{
             me.$message.error(data.message);
           }
-        })*/
-        me.$router.push("/index");
+        },function (err) {
+          me.$message.error(err.message);
+        });
         event.preventDefault();
       },
       initPageHeight:function(){
